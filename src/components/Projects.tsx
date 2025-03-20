@@ -1,5 +1,5 @@
 import React from "react";
-import { ExternalLink, Github } from "lucide-react";
+import { Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Projects: React.FC = () => {

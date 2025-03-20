@@ -3,10 +3,9 @@ import { NavigationMenu } from "./NavigationMenu";
 
 interface MobileMenuProps {
   isOpen: boolean;
-  onClose: () => void;
 }
 
-export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
+export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen }) => {
   if (!isOpen) return null;
 
   return (
