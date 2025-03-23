@@ -12,10 +12,10 @@ declare global {
 // Initialize dataLayer
 window.dataLayer = window.dataLayer || [];
 
-// Initialize gtag
-function gtag(...args: any[]) {
+// Initialize gtag function
+window.gtag = function(...args: any[]) {
   window.dataLayer.push(arguments);
-}
+};
 
 // Hook to initialize Google Analytics
 export const useGoogleAnalytics = () => {
