@@ -22,16 +22,19 @@ const Header: React.FC = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled 
           ? "py-3 bg-background/95 backdrop-blur-sm border-b" 
           : "py-5"
       }`}
     >
       <div className="container flex justify-between items-center">
-        <a href="#home" className="font-mono text-xl tracking-wider">
-          <span className="text-accent">ZAIM</span>
-          <span className="text-foreground">.DEV</span>
+        <a 
+          href="#home" 
+          className="font-mono text-xl tracking-wider relative group"
+        >
+          <span className="text-accent group-hover:text-accent/80 transition-colors">ZAIM</span>
+          <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300" />
         </a>
 
         {isMobile ? (
@@ -40,7 +43,7 @@ const Header: React.FC = () => {
             <Button
               variant="outline"
               size="icon"
-              className="relative"
+              className="relative border-2 hover:border-accent transition-colors"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}

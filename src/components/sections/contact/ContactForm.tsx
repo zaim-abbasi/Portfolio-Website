@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Send } from "lucide-react";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
 
 export const ContactForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -21,22 +22,48 @@ export const ContactForm: React.FC = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
   
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    
-    setTimeout(() => {
-      toast.success("Message sent successfully!");
-      setFormData({ name: "", email: "", message: "" });
+
+    try {
+      const response = await fetch("https://formspree.io/f/xwployde", {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        toast.success("Message sent successfully!");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        const data = await response.json();
+        if (Object.hasOwn(data, 'errors')) {
+          toast.error(data.errors.map((error: any) => error.message).join(", "));
+        } else {
+          toast.error("Failed to send message. Please try again.");
+        }
+      }
+    } catch (error) {
+      toast.error("Failed to send message. Please try again.");
+    } finally {
       setLoading(false);
-    }, 1500);
+    }
   };
 
   return (
-    <div className="pixel-card border-2 hover:border-accent">            
-      <form onSubmit={handleSubmit}>              
-        <div className="mb-4">
-          <label htmlFor="name" className="block mb-2 font-pixel text-sm">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.2 }}
+      className="h-full bg-card/50 backdrop-blur-sm rounded-2xl p-6 border-2 border-accent/10 hover:border-accent/20 transition-all duration-300"
+    >
+      <form onSubmit={handleSubmit} className="space-y-4 h-full flex flex-col">
+        <div>
+          <label htmlFor="name" className="block mb-2 font-mono text-sm">
             Name
           </label>
           <Input
@@ -45,13 +72,13 @@ export const ContactForm: React.FC = () => {
             value={formData.name}
             onChange={handleChange}
             required
-            className="pixel-borders focus:border-accent"
+            className="font-mono bg-background/50 border-accent/10 focus:border-accent/20 focus-visible:ring-1 focus-visible:ring-accent/20"
             placeholder="Your Name"
           />
         </div>
         
-        <div className="mb-4">
-          <label htmlFor="email" className="block mb-2 font-pixel text-sm">
+        <div>
+          <label htmlFor="email" className="block mb-2 font-mono text-sm">
             Email
           </label>
           <Input
@@ -61,13 +88,13 @@ export const ContactForm: React.FC = () => {
             value={formData.email}
             onChange={handleChange}
             required
-            className="pixel-borders focus:border-accent"
+            className="font-mono bg-background/50 border-accent/10 focus:border-accent/20 focus-visible:ring-1 focus-visible:ring-accent/20"
             placeholder="your.email@example.com"
           />
         </div>
         
-        <div className="mb-6">
-          <label htmlFor="message" className="block mb-2 font-pixel text-sm">
+        <div className="flex-grow">
+          <label htmlFor="message" className="block mb-2 font-mono text-sm">
             Message
           </label>
           <Textarea
@@ -76,29 +103,29 @@ export const ContactForm: React.FC = () => {
             value={formData.message}
             onChange={handleChange}
             required
-            className="pixel-borders min-h-[150px] focus:border-accent"
+            className="font-mono h-[calc(100%-2rem)] min-h-[100px] bg-background/50 border-accent/10 focus:border-accent/20 focus-visible:ring-1 focus-visible:ring-accent/20 resize-none mb-4"
             placeholder="Your message here..."
           />
         </div>
         
         <Button 
           type="submit" 
-          className="pixel-button w-full bg-accent hover:bg-accent/90 flex items-center justify-center gap-2"
+          className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-mono group"
           disabled={loading}
         >
           {loading ? (
-            <span className="inline-flex items-center gap-2">
-              <span className="w-2 h-2 bg-white animate-pulse"></span>
+            <span className="flex items-center gap-2">
+              <span className="h-2 w-2 bg-current rounded-full animate-pulse"></span>
               <span>Sending...</span>
             </span>
           ) : (
-            <>
-              <Send size={16} />
+            <span className="flex items-center gap-2">
+              <Send className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
               <span>Send Message</span>
-            </>
+            </span>
           )}
         </Button>
       </form>
-    </div>
+    </motion.div>
   );
 };

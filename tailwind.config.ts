@@ -62,6 +62,11 @@ export default {
           foreground: "hsl(var(--card-foreground))"
         }
       },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -74,18 +79,31 @@ export default {
         gradient: {
           "0%, 100%": { backgroundPosition: "0% 50%" },
           "50%": { backgroundPosition: "100% 50%" }
+        },
+        "spin-slow": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" }
+        },
+        "pulse-slow": {
+          "0%, 100%": { opacity: "0.2" },
+          "50%": { opacity: "0.3" }
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-20px)" }
+        },
+        shimmer: {
+          "100%": { transform: "translateX(100%)" }
         }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         gradient: "gradient 15s ease infinite",
-        blink: "blink 1.2s step-start infinite",
+        "spin-slow": "spin-slow 12s linear infinite",
+        "pulse-slow": "pulse-slow 3s ease-in-out infinite",
         float: "float 6s ease-in-out infinite",
-        wave: "wave 2s ease-in-out infinite",
-        glow: "glow 2s ease-in-out infinite",
-        scroll: "scroll 8s linear infinite",
-        sparkle: "sparkle 4s ease-in-out infinite"
+        shimmer: "shimmer 2s infinite"
       }
     }
   },

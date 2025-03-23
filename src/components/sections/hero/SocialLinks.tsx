@@ -1,40 +1,50 @@
 import React from "react";
 import { Github, Linkedin, Mail } from "lucide-react";
+import { motion } from "framer-motion";
+
+const socialLinks = [
+  {
+    href: "https://github.com/zaim-abbasi",
+    icon: Github,
+    label: "GitHub Profile",
+    delay: 0.1
+  },
+  {
+    href: "https://www.linkedin.com/in/zaim-abbasi/",
+    icon: Linkedin,
+    label: "LinkedIn Profile",
+    delay: 0.2
+  },
+  {
+    href: "mailto:zaim.k.abbasi@gmail.com",
+    icon: Mail,
+    label: "Email Contact",
+    delay: 0.3
+  },
+];
 
 export const SocialLinks: React.FC = () => {
-  const socialLinks = [
-    {
-      href: "https://github.com",
-      icon: Github,
-      label: "GitHub Profile",
-    },
-    {
-      href: "https://linkedin.com",
-      icon: Linkedin,
-      label: "LinkedIn Profile",
-    },
-    {
-      href: "mailto:hello@example.com",
-      icon: Mail,
-      label: "Email Contact",
-    },
-  ];
-
   return (
-    <div className="flex gap-6 pt-4">
-      {socialLinks.map(({ href, icon: Icon, label }) => (
-        <a
-          key={href}
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="p-3 border-2 hover:bg-accent hover:text-accent-foreground transition-colors group relative overflow-hidden"
-          aria-label={label}
-        >
-          <Icon size={20} className="relative z-10" />
-          <div className="absolute inset-0 bg-accent transform translate-y-full group-hover:translate-y-0 transition-transform duration-200" />
-        </a>
-      ))}
+    <div className="h-10 flex items-center border-2 border-accent/10 rounded-lg px-2 bg-background/50 backdrop-blur-sm">
+      <div className="flex gap-2">
+        {socialLinks.map(({ href, icon: Icon, label, delay }) => (
+          <motion.a
+            key={href}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 rounded-lg text-foreground hover:text-accent transition-colors duration-300"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay }}
+            aria-label={label}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Icon size={16} className="transition-transform duration-300" />
+          </motion.a>
+        ))}
+      </div>
     </div>
   );
 };

@@ -2,48 +2,90 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { FileDown } from "lucide-react";
 import { SocialLinks } from "./SocialLinks";
+import { motion } from "framer-motion";
 
 export const HeroContent: React.FC = () => {
-  return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-lg font-pixel mb-2 text-accent animate-pulse">Hi, I'm Zaim Abbasi</h2>
-        <h1 className="text-2xl md:text-3xl font-pixel mb-4 leading-relaxed">
-          Software Engineer
-          <span className="text-accent">.</span>
-          Full Stack Developer
-        </h1>
-      </div>
-      
-      <p className="text-lg max-w-md leading-relaxed font-mono text-muted-foreground">
-        I craft elegant solutions to complex problems, bringing ideas to life through clean code and intuitive design.
-      </p>
-      
-      <div className="flex flex-wrap gap-4">
-        <Button 
-          className="bg-accent text-accent-foreground font-pixel text-sm h-10 pixel-button group relative overflow-hidden"
-          asChild
-        >
-          <a href="#projects" className="relative z-10">
-            <span className="relative z-10">View my Work</span>
-            <div className="absolute inset-0 bg-accent-foreground transform translate-y-full group-hover:translate-y-0 transition-transform duration-200" />
-          </a>
-        </Button>
+  const handleOpenCV = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    window.open('https://drive.google.com/file/d/1h7mp0l7XafguO2kIizde3tR-wkea62xq/view?usp=sharing', '_blank');
+  };
 
-        <Button 
-          variant="outline"
-          className="font-pixel text-sm h-10 pixel-button group relative overflow-hidden"
-          asChild
+  return (
+    <motion.div
+      className="space-y-8"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="space-y-4">
+        <motion.div
+          className="space-y-2"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.2 }}
         >
-          <a href="/cv.pdf" download className="relative z-10">
-            <FileDown size={16} className="mr-2 relative z-10" />
-            <span className="relative z-10">Download CV</span>
-            <div className="absolute inset-0 bg-accent transform translate-y-full group-hover:translate-y-0 transition-transform duration-200" />
-          </a>
-        </Button>
+          <h2 className="text-base font-mono text-accent/80">Hi, I'm</h2>
+          <h1 className="text-2xl md:text-3xl font-mono tracking-tight">
+            Zaim Abbasi
+            <span className="text-accent">.</span>
+          </h1>
+          <p className="text-lg font-mono text-muted-foreground/80">
+            Software & Product Engineer
+          </p>
+        </motion.div>
+
+        <motion.p
+          className="text-sm md:text-base max-w-md leading-relaxed font-mono text-muted-foreground/70"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+        >
+          I build simple, scalable solutions that work smoothly and feel natural
+          to use.
+        </motion.p>
       </div>
-      
-      <SocialLinks />
-    </div>
+
+      <motion.div
+        className="flex flex-wrap items-center gap-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6 }}
+      >
+        <div className="flex gap-4">
+          <Button
+            className="bg-accent hover:bg-accent/90 text-accent-foreground font-mono text-sm h-10 px-6 group relative overflow-hidden"
+            asChild
+          >
+            <a
+              href="#projects"
+              className="flex items-center gap-2"
+              aria-label="View my work"
+            >
+              <span className="relative z-10">View my Work</span>
+              <div className="absolute inset-0 bg-black/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+            </a>
+          </Button>
+
+          <Button
+            variant="outline"
+            className="bg-background hover:bg-accent/5 text-accent border-2 border-accent/20 font-mono text-sm h-10 px-6"
+            asChild
+          >
+            <a
+              href="#"
+              onClick={handleOpenCV}
+              className="flex items-center gap-2"
+              aria-label="View CV"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FileDown size={18} className="transition-transform group-hover:scale-110 duration-300" />
+              <span>View CV</span>
+            </a>
+          </Button>
+        </div>
+        <SocialLinks />
+      </motion.div>
+    </motion.div>
   );
 };

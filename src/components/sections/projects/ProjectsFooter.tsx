@@ -5,14 +5,11 @@ import { Github } from "lucide-react";
 export const ProjectsFooter: React.FC = () => {
   return (
     <div className="text-center mt-12">
-      <Button 
-        className="pixel-button bg-accent hover:bg-accent/90 h-9"
-        asChild
-      >
-        <a 
-          href="https://github.com" 
-          target="_blank" 
-          rel="noopener noreferrer" 
+      <Button className="bg-accent hover:bg-accent/90 h-9 font-mono" asChild>
+        <a
+          href="https://github.com/zaim-abbasi?tab=repositories"
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-flex items-center gap-2"
         >
           <Github size={16} />

@@ -1,55 +1,66 @@
 import React from "react";
 import { ArrowUp } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="py-8 border-t-2 relative overflow-hidden">
-      {/* Pixel decorations */}
-      <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-pixel-blue via-pixel-purple to-pixel-green"></div>
+    <footer className="py-8 relative overflow-hidden border-t border-accent/10 bg-card/50 backdrop-blur-sm">
+      {/* Gradient line at top */}
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-accent/5 via-accent/20 to-accent/5" />
       
-      {/* Pixel art decorative elements */}
-      <div className="absolute top-4 left-12 w-2 h-2 bg-pixel-blue opacity-30"></div>
-      <div className="absolute top-6 left-16 w-1 h-1 bg-pixel-green opacity-30"></div>
-      <div className="absolute bottom-4 right-12 w-2 h-2 bg-pixel-purple opacity-30"></div>
-      <div className="absolute bottom-6 right-16 w-1 h-1 bg-pixel-pink opacity-30"></div>
-      
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <div>
-            <a href="#home" className="font-pixel text-xl tracking-wider inline-block group" aria-label="Back to top">
-              <span className="text-pixel-blue group-hover:text-pixel-cyan transition-colors duration-300">ZAIM</span>
-              <span>.</span>
-              <span className="text-pixel-green group-hover:text-pixel-yellow transition-colors duration-300">ABBASI</span>
-            </a>
-            <p className="text-sm text-muted-foreground mt-2 font-mono">
-              © {currentYear} • Built with ♥ and pixels
-            </p>
-          </div>
-          
-          <div className="flex flex-col items-center">
+      <div className="container mx-auto px-4 max-w-6xl">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-col items-center md:items-start"
+          >
             <a 
               href="#home" 
-              className="p-3 border-2 border-dashed hover:border-pixel-blue hover:text-pixel-blue transition-colors duration-300 group relative overflow-hidden"
+              className="font-mono text-xl tracking-wider inline-block group relative"
+            >
+              <span className="text-accent group-hover:text-accent/80 transition-colors">ZAIM</span>
+              <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300" />
+            </a>
+            <p className="text-sm text-muted-foreground/70 mt-2 font-mono">
+              © {currentYear} • Crafting digital experiences with code
+            </p>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="flex flex-col items-center"
+          >
+            <a 
+              href="#home" 
+              className="p-3 rounded-xl border-2 border-accent/10 hover:border-accent/20 hover:bg-accent/5 transition-colors group"
               aria-label="Back to top"
             >
-              <ArrowUp size={20} />
-              <span className="absolute inset-0 bg-pixel-blue/10 transform scale-0 group-hover:scale-100 transition-transform duration-300 origin-bottom-left"></span>
+              <ArrowUp size={20} className="text-accent/80 group-hover:text-accent transition-colors" />
             </a>
-            <span className="text-xs text-muted-foreground mt-2 font-pixel">
+            <span className="text-xs text-muted-foreground/70 mt-2 font-mono">
               BACK TO TOP
             </span>
-          </div>
+          </motion.div>
           
-          <div className="text-sm text-right">
-            <p className="font-mono">Software Engineer • Problem Solver</p>
-            <div className="flex gap-2 mt-1 justify-end">
-              <span className="w-2 h-2 bg-pixel-blue"></span>
-              <span className="w-2 h-2 bg-pixel-green"></span>
-              <span className="w-2 h-2 bg-pixel-purple"></span>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-right flex flex-col items-center md:items-end"
+          >
+            <p className="font-mono text-muted-foreground/70">Software Engineer • Tech Enthusiast</p>
+            <div className="flex gap-2 mt-2">
+              <div className="w-2 h-2 rounded-full bg-accent/60 animate-pulse" />
+              <div className="w-2 h-2 rounded-full bg-accent/40 animate-pulse [animation-delay:200ms]" />
+              <div className="w-2 h-2 rounded-full bg-accent/20 animate-pulse [animation-delay:400ms]" />
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </footer>

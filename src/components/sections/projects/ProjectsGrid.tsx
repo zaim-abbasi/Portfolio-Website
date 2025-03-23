@@ -3,23 +3,26 @@ import { ProjectCard } from "./ProjectCard";
 
 const projects = [
   {
-    title: "TA Management System",
-    description: "Developed a comprehensive system to streamline assignments, schedules, and evaluations, implementing advanced database queries to enhance data handling and reporting, thus reducing administrative overhead.",
-    tags: ["React", "Node.js", "PostgreSQL"],
-    repoUrl: "https://github.com"
+    title: "Digital Content Platform",
+    description:
+      "Built a platform for creators to monetize content with paywalls and instant payments. Supports credit cards, PayPal, and crypto, ensuring secure transactions and reliable earnings.",
+    tags: ["React.js", "Supabase", "Node.js", "Tailwind CSS"],
+    repoUrl: "https://github.com/zaim-abbasi",
+  },
+  {
+    title: "AI Social Analytics",
+    description:
+      "Created an AI-powered social analytics app that tracks trends, detects intent, and helps businesses generate leads using real-time sentiment analysis across different online platforms.",
+    tags: ["React.js", "Node.js", "MongoDB", "Social Media APIs"],
+    repoUrl: "https://github.com/zaim-abbasi",
   },
   {
     title: "Multi-User Messaging Platform",
-    description: "Architected a robust terminal-based multi-user messaging platform using advanced network protocols, enabling secure peer-to-peer communication across local networks.",
-    tags: ["Python", "Networking", "Security"],
-    repoUrl: "https://github.com"
+    description:
+      "Developed a messaging platform with secure peer-to-peer communication using advanced network protocols, encryption, and authentication to enable seamless multi-user interactions over local networks.",
+    tags: ["Java", "Networking", "Socket Programming"],
+    repoUrl: "https://github.com/zaim-abbasi",
   },
-  {
-    title: "Terminal Maze Game",
-    description: "Designed a terminal-based Maze Game utilizing advanced data structures and pathfinding algorithms. Created a dynamic maze generation system with varying difficulty levels and integrated intelligent opponent AI.",
-    tags: ["C++", "Algorithms", "Data Structures"],
-    repoUrl: "https://github.com"
-  }
 ];
 
 export const ProjectsGrid: React.FC = () => {

@@ -4,14 +4,16 @@ import { cn } from "@/lib/utils";
 interface PixelArtProps {
   className?: string;
   color?: string;
+  style?: React.CSSProperties;
 }
 
 export const PixelAvatar: React.FC<PixelArtProps> = ({ 
   className,
-  color = "bg-pixel-blue"
+  color = "bg-pixel-blue",
+  style
 }) => {
   return (
-    <div className={cn("w-32 h-32 relative animate-float pixel-shadow", className)}>
+    <div className={cn("relative animate-float pixel-shadow", className)} style={style}>
       {/* Head */}
       <div className={cn("absolute w-16 h-16 top-4 left-8 transition-colors duration-300", color)}></div>
       
@@ -45,11 +47,22 @@ export const PixelAvatar: React.FC<PixelArtProps> = ({
       <div className="absolute w-2 h-2 bg-pixel-blue top-26 left-6 animate-pulse"></div>
       <div className="absolute w-2 h-2 bg-pixel-blue top-26 left-24 animate-pulse [animation-delay:0.5s]"></div>
       
-      {/* Pixel dust particles */}
-      <div className="absolute inset-0 animate-sparkle pointer-events-none">
-        <div className="absolute w-1 h-1 bg-pixel-blue/30 top-1/4 left-1/4"></div>
-        <div className="absolute w-1 h-1 bg-pixel-purple/30 top-3/4 right-1/4"></div>
-        <div className="absolute w-1 h-1 bg-pixel-green/30 bottom-1/4 left-1/3"></div>
+      {/* Code symbols floating around */}
+      <div className="absolute -inset-8 animate-sparkle pointer-events-none">
+        {['{', '}', '<', '>', '(', ')', ';', '=', '+', '*'].map((symbol, index) => (
+          <div
+            key={index}
+            className="absolute text-xs text-accent/30 animate-float"
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 2}s`,
+              transform: `rotate(${Math.random() * 360}deg)`
+            }}
+          >
+            {symbol}
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -57,42 +70,119 @@ export const PixelAvatar: React.FC<PixelArtProps> = ({
 
 export const PixelComputer: React.FC<PixelArtProps> = ({ 
   className,
-  color = "bg-pixel-green"
+  color = "bg-pixel-green",
+  style
 }) => {
   return (
-    <div className={cn("w-32 h-32 relative animate-float delay-150 pixel-shadow", className)}>
+    <div className={cn("relative animate-float delay-150 pixel-shadow", className)} style={style}>
       {/* Monitor with glowing screen */}
       <div className="absolute w-20 h-16 bg-foreground top-4 left-6 rounded-sm overflow-hidden">
         <div className={cn(
           "absolute w-16 h-12 top-2 left-2 pixel-scanlines animate-glow",
           color
         )}></div>
-      </div>
-      
-      {/* Animated code on screen */}
-      <div className="absolute top-6 left-8 w-16 h-12 overflow-hidden">
-        <div className="animate-scroll">
-          <div className="h-1 w-8 bg-background/20 mb-1"></div>
-          <div className="h-1 w-12 bg-background/20 mb-1"></div>
-          <div className="h-1 w-6 bg-background/20 mb-1"></div>
-          <div className="h-1 w-10 bg-background/20 mb-1"></div>
+        
+        {/* Code on screen */}
+        <div className="absolute top-4 left-4 right-4 bottom-4">
+          <div className="animate-scroll space-y-1">
+            {[...Array(6)].map((_, i) => (
+              <div
+                key={i}
+                className="h-1 bg-background/20"
+                style={{ width: `${30 + Math.random() * 40}%` }}
+              />
+            ))}
+          </div>
         </div>
       </div>
       
-      {/* Keyboard with hover effect */}
+      {/* Keyboard with interactive keys */}
       <div className="absolute w-24 h-4 bg-foreground top-20 left-4 hover:bg-foreground/90 transition-colors duration-300">
-        <div className="absolute w-22 h-1 bg-muted top-1 left-1 animate-pulse"></div>
+        {[...Array(6)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute h-1 bg-muted/40 animate-pulse"
+            style={{
+              width: '2px',
+              left: `${4 + i * 4}px`,
+              top: '4px',
+              animationDelay: `${i * 0.1}s`
+            }}
+          />
+        ))}
       </div>
       
-      {/* Computer base with shadow */}
-      <div className="absolute w-8 h-2 bg-foreground/80 top-24 left-12 shadow-lg"></div>
-      
-      {/* Pixel dust effect */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute w-1 h-1 bg-pixel-green/30 animate-float top-0 left-1/4"></div>
-        <div className="absolute w-1 h-1 bg-pixel-blue/30 animate-float delay-100 top-1/3 right-1/4"></div>
-        <div className="absolute w-1 h-1 bg-pixel-purple/30 animate-float delay-200 bottom-1/4 left-1/3"></div>
+      {/* Coffee cup with steam */}
+      <div className="absolute w-4 h-4 right-2 top-20">
+        <div className="w-3 h-4 bg-pixel-purple/80 relative">
+          <div className="absolute w-1 h-2 bg-pixel-purple right-[-4px] top-1" />
+          <div className="absolute w-3 h-1 bg-pixel-cyan/30 top-0 animate-pulse" />
+          {/* Steam particles */}
+          {[...Array(3)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-1 h-1 bg-pixel-purple/30 animate-float"
+              style={{
+                left: `${i * 4}px`,
+                top: `-${6 + i * 2}px`,
+                animationDelay: `${i * 0.3}s`
+              }}
+            />
+          ))}
+        </div>
       </div>
+    </div>
+  );
+};
+
+export const PixelCloud: React.FC<PixelArtProps> = ({ 
+  className,
+  color = "bg-secondary",
+  style
+}) => {
+  return (
+    <div className={cn("relative animate-float delay-300 pixel-shadow", className)} style={style}>
+      <div className={cn("absolute w-16 h-8 top-6 left-8", color)}></div>
+      <div className={cn("absolute w-6 h-6 top-4 left-12", color)}></div>
+      <div className={cn("absolute w-6 h-6 top-4 left-6", color)}></div>
+      <div className={cn("absolute w-6 h-6 top-4 left-18", color)}></div>
+      
+      {/* Cloud details */}
+      <div className={cn("absolute w-4 h-4 top-2 left-8", color)}></div>
+      <div className={cn("absolute w-4 h-4 top-2 left-16", color)}></div>
+      
+      {/* Animated particles */}
+      {[...Array(3)].map((_, i) => (
+        <div
+          key={i}
+          className={cn("absolute w-1 h-1 animate-float", color)}
+          style={{
+            top: `${60 + Math.random() * 20}%`,
+            left: `${20 + i * 30}%`,
+            animationDelay: `${i * 0.3}s`,
+            opacity: 0.6
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+export const PixelStar: React.FC<PixelArtProps> = ({ 
+  className,
+  color = "bg-pixel-yellow",
+  style
+}) => {
+  return (
+    <div className={cn("relative animate-pulse-slow", className)} style={style}>
+      <div className={cn("absolute w-1 h-1", color)}></div>
+      <div className={cn("absolute w-3 h-1 left-1", color)}></div>
+      <div className={cn("absolute w-1 h-3 top-1", color)}></div>
+      {/* Glow effect */}
+      <div className={cn(
+        "absolute inset-0 blur-sm opacity-50",
+        color
+      )}></div>
     </div>
   );
 };
