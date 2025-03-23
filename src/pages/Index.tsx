@@ -6,8 +6,12 @@ import Projects from "@/components/sections/projects/Projects";
 import Contact from "@/components/sections/contact/Contact";
 import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/lib/theme";
+import { useGoogleAnalytics } from "@/lib/analytics";
 
 const Index: React.FC = () => {
+  // Initialize Google Analytics
+  useGoogleAnalytics();
+
   return (
     <ThemeProvider>
       <div className="min-h-screen flex flex-col relative">

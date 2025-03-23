@@ -1,8 +1,10 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { useGoogleAnalytics } from "@/lib/analytics";
 
 const NotFound = () => {
   const location = useLocation();
+  useGoogleAnalytics();
 
   useEffect(() => {
     console.error(
