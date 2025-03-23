@@ -41,7 +41,7 @@ export const ContactForm: React.FC = () => {
         setFormData({ name: "", email: "", message: "" });
       } else {
         const data = await response.json();
-        if (Object.hasOwn(data, 'errors')) {
+        if ('errors' in data) {
           toast.error(data.errors.map((error: any) => error.message).join(", "));
         } else {
           toast.error("Failed to send message. Please try again.");
