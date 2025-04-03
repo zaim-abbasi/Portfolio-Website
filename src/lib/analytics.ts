@@ -22,35 +22,48 @@ export const useGoogleAnalytics = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // Add Google Analytics script
-    const script1 = document.createElement("script");
-    script1.async = true;
-    script1.src = "https://www.googletagmanager.com/gtag/js?id=G-5XE2FESRKW";
+    try {
+      // Add Google Analytics script
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = "https://www.googletagmanager.com/gtag/js?id=G-5XE2FESRKW";
+      
+      script.onerror = () => {
+        console.warn("Analytics failed to load - Development environment detected");
+      };
 
-    const script2 = document.createElement("script");
-    script2.innerHTML = `
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-5XE2FESRKW');
-    `;
+      document.head.appendChild(script);
 
-    document.head.appendChild(script1);
-    document.head.appendChild(script2);
-
-    return () => {
-      // Cleanup scripts on unmount
-      document.head.removeChild(script1);
-      document.head.removeChild(script2);
-    };
-  }, []);
-
-  // Track page views
-  useEffect(() => {
-    if (window.gtag) {
-      window.gtag("event", "page_view", {
-        page_path: location.pathname + location.search,
+      // Initialize gtag
+      window.gtag("js", new Date());
+      window.gtag("config", "G-5XE2FESRKW", {
+        send_page_view: false, // Disable automatic page views
+        transport_url: "https://www.google-analytics.com", // Explicitly set transport URL
+        debug_mode: process.env.NODE_ENV === "development"
       });
+
+      // Track page views manually
+      const trackPageView = () => {
+        try {
+          window.gtag("event", "page_view", {
+            page_title: document.title,
+            page_location: window.location.href,
+            page_path: location.pathname + location.search,
+            send_to: "G-5XE2FESRKW"
+          });
+        } catch (error) {
+          console.warn("Analytics event failed - Development environment detected");
+        }
+      };
+
+      // Track initial page view
+      trackPageView();
+
+      return () => {
+        document.head.removeChild(script);
+      };
+    } catch (error) {
+      console.warn("Analytics initialization skipped - Development environment detected");
     }
   }, [location]);
 };

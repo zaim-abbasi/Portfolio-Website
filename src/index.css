@@ -79,11 +79,22 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
-    @apply bg-transparent;
+    @apply bg-transparent rounded-full;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-accent/10 rounded-full hover:bg-accent/20;
+    @apply bg-accent/10 rounded-full hover:bg-accent/20 transition-all duration-300 hover:w-2;
+  }
+
+  /* Firefox scrollbar styles */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--accent) / 0.2) transparent;
+  }
+
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--accent) / 0.1) transparent;
   }
 }
 

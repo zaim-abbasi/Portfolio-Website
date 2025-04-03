@@ -3,8 +3,11 @@ import { Button } from "@/components/ui/button";
 import { FileDown } from "lucide-react";
 import { SocialLinks } from "./SocialLinks";
 import { motion } from "framer-motion";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export const HeroContent: React.FC = () => {
+  const isMobile = useIsMobile();
+  
   const handleOpenCV = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     window.open('https://drive.google.com/file/d/1h7mp0l7XafguO2kIizde3tR-wkea62xq/view?usp=sharing', '_blank');
@@ -12,7 +15,7 @@ export const HeroContent: React.FC = () => {
 
   return (
     <motion.div
-      className="space-y-8"
+      className="space-y-8 w-full"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -25,7 +28,7 @@ export const HeroContent: React.FC = () => {
           transition={{ delay: 0.2 }}
         >
           <h2 className="text-base font-mono text-accent/80">Hi, I'm</h2>
-          <h1 className="text-2xl md:text-3xl font-mono tracking-tight">
+          <h1 className={`${isMobile ? 'text-2xl' : 'text-3xl'} font-mono tracking-tight`}>
             Zaim Abbasi
             <span className="text-accent">.</span>
           </h1>
@@ -35,7 +38,7 @@ export const HeroContent: React.FC = () => {
         </motion.div>
 
         <motion.p
-          className="text-sm md:text-base max-w-md leading-relaxed font-mono text-muted-foreground/70"
+          className={`${isMobile ? 'text-sm' : 'text-base'} max-w-md leading-relaxed font-mono text-muted-foreground/70`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
@@ -51,30 +54,36 @@ export const HeroContent: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
       >
-        <div className="flex gap-4">
+        <div className={`flex ${isMobile ? 'flex-col w-full' : 'gap-4'}`}>
           <Button
-            className="bg-accent hover:bg-accent/90 text-accent-foreground font-mono text-sm h-10 px-6 group relative overflow-hidden"
+            className={`bg-accent hover:bg-accent/90 text-accent-foreground font-mono text-sm h-10 px-6 group relative overflow-hidden ${
+              isMobile ? 'w-full mb-3' : ''
+            }`}
             asChild
           >
             <a
               href="#projects"
-              className="flex items-center gap-2"
+              className="flex items-center justify-center gap-2"
               aria-label="View my work"
             >
               <span className="relative z-10">View my Work</span>
-              <div className="absolute inset-0 bg-black/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+              {!isMobile && (
+                <div className="absolute inset-0 bg-black/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+              )}
             </a>
           </Button>
 
           <Button
             variant="outline"
-            className="bg-background hover:bg-accent/5 text-accent border-2 border-accent/20 font-mono text-sm h-10 px-6"
+            className={`bg-background hover:bg-accent/5 text-accent border-2 border-accent/20 font-mono text-sm h-10 px-6 ${
+              isMobile ? 'w-full mb-3' : ''
+            }`}
             asChild
           >
             <a
               href="#"
               onClick={handleOpenCV}
-              className="flex items-center gap-2"
+              className="flex items-center justify-center gap-2"
               aria-label="View CV"
               target="_blank"
               rel="noopener noreferrer"
