@@ -74,6 +74,32 @@
     @apply bg-accent/20 rounded-full hover:bg-accent/30 transition-colors;
   }
 
+  /* Journal section scrollbar */
+  .journal-scrollbar::-webkit-scrollbar {
+    @apply w-1 opacity-0;
+  }
+
+  .journal-scrollbar:hover::-webkit-scrollbar {
+    @apply opacity-100 transition-opacity duration-300;
+  }
+
+  .journal-scrollbar::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .journal-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-accent/10 rounded-full hover:bg-accent/20 transition-all duration-300;
+  }
+
+  .journal-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .journal-scrollbar:hover {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--accent) / 0.1) transparent;
+  }
+
   .custom-scrollbar::-webkit-scrollbar {
     @apply w-1;
   }

@@ -8,20 +8,17 @@ const About: React.FC = () => {
   const isMobile = useIsMobile();
 
   return (
-    <section id="about" className={`${isMobile ? 'py-12' : 'py-24'}`}>
-      <div className="container mx-auto px-4">
+    <section id="about" className="scroll-mt-20 py-8 md:py-12">
+      <div className="container mx-auto px-4 max-w-[95%]">
         <motion.div 
-          className={`text-center ${isMobile ? 'mb-8' : 'mb-16'}`}
+          className="mb-12 md:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <div className="inline-block mb-3 text-sm font-mono text-accent/80 bg-accent/5 px-4 py-1.5 rounded-full border-2 border-accent/10">
-            About me
-          </div>
-          <h2 className={`${isMobile ? 'text-2xl' : 'text-3xl'} mb-4 font-mono`}>Skills & Experience</h2>
-          <p className="text-muted-foreground/70 max-w-2xl mx-auto font-mono text-sm md:text-base">
+          <h2 className="text-2xl md:text-3xl mb-4 font-mono">Skills & Experience</h2>
+          <p className="text-muted-foreground/70 max-w-3xl font-mono text-sm md:text-base">
             Third-year Software Engineering student at FAST (Class of '26), passionate about 
             building scalable applications and learning new technologies.
           </p>

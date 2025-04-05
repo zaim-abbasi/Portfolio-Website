@@ -49,7 +49,7 @@ export const HeroContent: React.FC = () => {
       </div>
 
       <motion.div
-        className="flex flex-wrap items-center gap-4"
+        className="flex flex-col gap-6"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
@@ -76,7 +76,7 @@ export const HeroContent: React.FC = () => {
           <Button
             variant="outline"
             className={`bg-background hover:bg-accent/5 text-accent border-2 border-accent/20 font-mono text-sm h-10 px-6 ${
-              isMobile ? 'w-full mb-3' : ''
+              isMobile ? 'w-full' : ''
             }`}
             asChild
           >

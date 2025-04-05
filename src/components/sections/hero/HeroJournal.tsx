@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Calendar, Code2, Laptop } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface JournalEntry {
   date: string;
@@ -39,13 +40,16 @@ const journalEntries: JournalEntry[] = [
 ];
 
 export const HeroJournal: React.FC = () => {
+  const isMobile = useIsMobile();
+  
   return (
-    <div className="relative bg-card/50 backdrop-blur-sm border-2 rounded-xl p-6 shadow-xl">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/20 rounded-xl pointer-events-none" />
-      
+    <div className="relative bg-card/50 backdrop-blur-sm border-2 rounded-xl p-6 shadow-xl">      
       <div className="flex items-center gap-3 mb-6">
         <span className="text-accent animate-pulse">●</span>
-        <h2 className="text-xl font-mono">Journal</h2>
+        <h2 className={cn(
+          "font-mono",
+          isMobile ? "text-lg" : "text-xl"
+        )}>Journal</h2>
       </div>
 
       <div className="space-y-6">
@@ -63,24 +67,34 @@ export const HeroJournal: React.FC = () => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   {entry.icon}
-                  <span className="text-xs text-muted-foreground font-mono">
+                  <span className={cn(
+                    "font-mono text-muted-foreground",
+                    isMobile ? "text-[10px]" : "text-xs"
+                  )}>
                     {entry.date}
                   </span>
                 </div>
                 <span className={cn(
-                  "text-xs px-3 py-1 rounded-full font-mono transition-colors duration-300",
+                  "px-3 py-1 rounded-full font-mono transition-colors duration-300",
                   "bg-accent/10 text-accent border border-accent/20",
-                  "group-hover:bg-accent/20 group-hover:border-accent/30"
+                  "group-hover:bg-accent/20 group-hover:border-accent/30",
+                  isMobile ? "text-[10px]" : "text-xs"
                 )}>
                   {entry.type}
                 </span>
               </div>
               
-              <h3 className="font-mono text-base font-semibold group-hover:text-accent transition-colors duration-300">
+              <h3 className={cn(
+                "font-mono font-semibold group-hover:text-accent transition-colors duration-300",
+                isMobile ? "text-sm" : "text-base"
+              )}>
                 {entry.title}
               </h3>
               
-              <p className="text-sm text-muted-foreground/80 group-hover:text-muted-foreground transition-colors duration-300">
+              <p className={cn(
+                "text-muted-foreground/80 group-hover:text-muted-foreground transition-colors duration-300 font-mono",
+                isMobile ? "text-xs" : "text-sm"
+              )}>
                 {entry.description}
               </p>
             </div>

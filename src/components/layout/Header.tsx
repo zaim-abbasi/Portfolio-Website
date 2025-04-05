@@ -11,6 +11,8 @@ const Header: React.FC = () => {
   const [scrolled, setScrolled] = React.useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const isMobile = useIsMobile();
+  const headerRef = React.useRef<HTMLElement>(null);
+  const headerHeight = headerRef.current?.offsetHeight || 0;
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -20,6 +22,32 @@ const Header: React.FC = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Handle smooth scrolling with header offset
+  React.useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'A' && target.hash) {
+        e.preventDefault();
+        const element = document.querySelector(target.hash);
+        if (element) {
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
+
+          // Close mobile menu if open
+          setMobileMenuOpen(false);
+        }
+      }
+    };
+
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  }, [headerHeight]);
 
   // Lock body scroll when mobile menu is open
   React.useEffect(() => {
@@ -33,6 +61,7 @@ const Header: React.FC = () => {
 
   return (
     <header
+      ref={headerRef}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled 
           ? "py-3 bg-background/95 backdrop-blur-sm border-b" 
@@ -76,7 +105,11 @@ const Header: React.FC = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.2 }}
-                  className="fixed inset-0 top-16 bg-background/95 backdrop-blur-sm z-40"
+                  style={{ 
+                    top: headerRef.current ? headerRef.current.offsetHeight : 60,
+                    height: `calc(100vh - ${headerRef.current?.offsetHeight || 60}px)`
+                  }}
+                  className="fixed inset-x-0 bottom-0 bg-background/95 backdrop-blur-sm z-40"
                 >
                   <nav className="flex flex-col items-center justify-center h-full">
                     <div className="flex flex-col items-center gap-8">

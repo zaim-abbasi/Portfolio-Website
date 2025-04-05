@@ -25,7 +25,7 @@ const socialLinks = [
 
 export const SocialLinks: React.FC = () => {
   return (
-    <div className="h-10 flex items-center border-2 border-accent/10 rounded-lg px-2 bg-background/50 backdrop-blur-sm">
+    <div className="h-10 inline-flex items-center border-2 border-accent/10 rounded-lg px-2 bg-background/50 backdrop-blur-sm self-start">
       <div className="flex gap-2">
         {socialLinks.map(({ href, icon: Icon, label, delay }) => (
           <motion.a
