@@ -4,7 +4,6 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NavigationMenu } from "./NavigationMenu";
-import { MobileMenu } from "./MobileMenu";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Header: React.FC = () => {
@@ -27,20 +26,23 @@ const Header: React.FC = () => {
   React.useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (target.tagName === 'A' && target.hash) {
+      if (target.tagName === 'A' && target.getAttribute('href')?.startsWith('#')) {
         e.preventDefault();
-        const element = document.querySelector(target.hash);
-        if (element) {
-          const elementPosition = element.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+        const href = target.getAttribute('href');
+        if (href) {
+          const element = document.querySelector(href);
+          if (element) {
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
 
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth"
-          });
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth"
+            });
 
-          // Close mobile menu if open
-          setMobileMenuOpen(false);
+            // Close mobile menu if open
+            setMobileMenuOpen(false);
+          }
         }
       }
     };

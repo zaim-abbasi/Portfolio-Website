@@ -2,11 +2,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import { AboutSkills } from "./AboutSkills";
 import { AboutExperience } from "./AboutExperience";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 const About: React.FC = () => {
-  const isMobile = useIsMobile();
-
   return (
     <section id="about" className="scroll-mt-20 py-8 md:py-12">
       <div className="container mx-auto px-4 max-w-[95%]">

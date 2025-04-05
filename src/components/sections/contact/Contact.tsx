@@ -2,11 +2,8 @@ import React from "react";
 import { ContactForm } from "./ContactForm";
 import { ContactInfo } from "./ContactInfo";
 import { motion } from "framer-motion";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 const Contact: React.FC = () => {
-  const isMobile = useIsMobile();
-
   return (
     <section id="contact" className="scroll-mt-20 py-8 md:py-12">
       <div className="container mx-auto px-4 max-w-[95%]">
