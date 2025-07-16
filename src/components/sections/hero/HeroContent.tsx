@@ -10,7 +10,7 @@ export const HeroContent: React.FC = () => {
   
   const handleOpenCV = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    window.open('https://drive.google.com/file/d/1h7mp0l7XafguO2kIizde3tR-wkea62xq/view?usp=sharing', '_blank');
+    window.open('https://drive.google.com/file/d/1KncjN44th9Op3QxjvjK622si53Mt12Pi/view?usp=sharing', '_blank');
   };
 
   return (
